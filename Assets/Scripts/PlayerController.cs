@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
 
-    private Animator animator;
+    public Animator animator;
     public Joystick joystick;
     private void Start()
     {
@@ -26,10 +26,21 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = Vector3.ClampMagnitude(directionVector, 1) * speed;
 
+        
+
+        if (joystick.Horizontal != 0 || joystick.Vertical != 0)
+        {
+            transform.rotation = Quaternion.LookRotation(rb.velocity);
+        }
+
 
 
 
     }
-
-  
+    private void OnTriggerEnter(Collider other)
+    {
+        speed = speed * -1;
     }
+
+
+}
