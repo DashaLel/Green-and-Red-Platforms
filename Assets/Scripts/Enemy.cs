@@ -12,46 +12,63 @@ public class Enemy : MonoBehaviour
     private Vector3 centerPoint;
     private Vector3 targetPoint;
     public float attackDistance = 0.5f;
-    public PlayerController player;
-    private bool isAttacking = false;
+    private bool isAttacking;
+    public GameObject Player;
+    private Rigidbody enemyRb;
+    private Animator animator;
+    
 
-    // Start is called before the first frame update
     void Start()
     {
+        enemyRb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         centerPoint = transform.position;
         targetPoint = RandomPointInCircle();
-
-
-
+        
+        Player = GameObject.FindGameObjectWithTag("Player");
 
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
-        
-            if (Vector3.Distance(transform.position, targetPoint) < 0.1f )
+        if (isAttacking == false)
+        {
+
+            if (Vector3.Distance(transform.position, targetPoint) < 0.1f)
             {
 
                 targetPoint = RandomPointInCircle();
 
             }
-        MoveToThePoint();
-          }
+            MoveToThePoint();
+        }
 
-    
+        if (Vector3.Distance(transform.position, Player.transform.position) < attackDistance)
+        {
+            isAttacking = true;
+        }
 
+            if (isAttacking == true)
+            {
+                animator.SetTrigger("Attack");
+                Vector3 lookDirection = (Player.transform.position - transform.position).normalized;
+                Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, moveSpeed * Time.deltaTime);
 
+            }
 
-    private Vector3 RandomPointInCircle()
-    {
-        float angle = Random.Range(0f, Mathf.PI * 2f);
-       float distance = Random.Range(0f, radius);
-        Vector3 offset = new Vector3(Mathf.Cos(angle) * distance, 0f, Mathf.Sin(angle) * distance);
-        return centerPoint + offset;
     }
 
+    private Vector3 RandomPointInCircle()
+        {
+            float angle = Random.Range(0f, Mathf.PI * 2f);
+            float distance = Random.Range(0f, radius);
+            Vector3 offset = new Vector3(Mathf.Cos(angle) * distance, 0f, Mathf.Sin(angle) * distance);
+            return centerPoint + offset;
+        }
+    
    
     private void MoveToThePoint()
     {
@@ -60,6 +77,7 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
         transform.position = Vector3.MoveTowards(transform.position, targetPoint, moveSpeed * Time.deltaTime);
     }
+
 }
 
 
