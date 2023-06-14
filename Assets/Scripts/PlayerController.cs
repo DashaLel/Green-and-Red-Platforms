@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
     public Joystick joystick;
+    
+   
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -19,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+      
         float horizontalInput = joystick.Horizontal;
         float verticallInput = joystick.Vertical;
         Vector3 directionVector = new Vector3(horizontalInput, 0, verticallInput);
@@ -39,8 +42,13 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        speed = speed * -1;
+        if (other.tag == "Red Box")
+        {
+            speed = speed * -1;
+        }
     }
+    
+
 
 
 }
