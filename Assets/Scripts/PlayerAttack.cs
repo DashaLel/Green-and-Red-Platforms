@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public int damageAmount = 20;
+   
 
 
     private bool isAttacking = false;
@@ -16,8 +16,8 @@ public class PlayerAttack : MonoBehaviour
     public float attackRate = 2f;
     private float nextAttackTime = 0f;
     public Slider healthBar;
-    private int HealthPoint = 200;
-    
+    private int HealthPoint = 300;
+    public int PlayerdamageAmount;
 
     void Start()
     {
@@ -44,7 +44,7 @@ public class PlayerAttack : MonoBehaviour
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
         foreach (Collider enemy in hitEnemies)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(damageAmount);
+            enemy.GetComponent<Enemy>().PlayerTakeDamage(PlayerdamageAmount);
         }
     }
     void OnDrawGizmosSelected()
@@ -54,9 +54,11 @@ public class PlayerAttack : MonoBehaviour
 
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
-    public void PlayerTakeDamage(int damageAmount)
+    
+
+    public void TakeDamage(int PlayerdamageAmount)
     {
-        HealthPoint -= damageAmount;
+        HealthPoint -= PlayerdamageAmount;
         if (HealthPoint <= 0)
         {
             Destroy(gameObject);

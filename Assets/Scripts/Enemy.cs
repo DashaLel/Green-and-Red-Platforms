@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 
 public class Enemy : MonoBehaviour
@@ -9,7 +10,7 @@ public class Enemy : MonoBehaviour
 
     public float moveSpeed = 1f;
     public float rotationSpeed = 3f;
-    public float radius = 3f;
+    public float radius = 10f;
     private Vector3 centerPoint;
     private Vector3 targetPoint;
     public float attackDistance = 0.5f;
@@ -20,18 +21,26 @@ public class Enemy : MonoBehaviour
     private int HelthPoint = 100;
     public Slider healthBar;
     public Transform attackPoint;
-    public float attackRate = 2f;
+    
     public float EnemyAttackRange;
     public int damageAmount;
     public LayerMask playerLayers;
 
 
+
+
+
+
+
+
     void Start()
     {
+
         enemyRb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        centerPoint = transform.position;
+
         targetPoint = RandomPointInCircle();
+
 
         Player = GameObject.FindGameObjectWithTag("Player");
 
@@ -41,6 +50,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         healthBar.value = HelthPoint;
+        
         if (isAttacking == false)
         {
 
@@ -51,36 +61,38 @@ public class Enemy : MonoBehaviour
 
             }
             MoveToThePoint();
+
+
+
         }
 
         if (Vector3.Distance(transform.position, Player.transform.position) < attackDistance)
         {
             isAttacking = true;
+
+
         }
 
         if (isAttacking == true)
         {
             animator.SetTrigger("Attack");
             Vector3 lookDirection = (Player.transform.position - transform.position).normalized;
+            
+
             Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
+            
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
             transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, moveSpeed * Time.deltaTime);
+            
 
             Attack();
         }
 
-    }
-
-    public void TakeDamage(int damageAmount)
-    {
-        HelthPoint -= damageAmount;
-        if (HelthPoint <= 0)
-        {
-            Destroy(gameObject);
-
-        }
 
     }
+
+
+    
 
     private Vector3 RandomPointInCircle()
     {
@@ -93,17 +105,21 @@ public class Enemy : MonoBehaviour
 
     private void MoveToThePoint()
     {
+       
         Vector3 direction = (targetPoint - transform.position).normalized;
+        
+
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
         transform.position = Vector3.MoveTowards(transform.position, targetPoint, moveSpeed * Time.deltaTime);
+        
     }
     void Attack()
     {
         Collider[] hitPlayers = Physics.OverlapSphere(attackPoint.position, EnemyAttackRange, playerLayers);
         foreach (Collider player in hitPlayers)
         {
-            player.GetComponent<PlayerAttack>().PlayerTakeDamage(damageAmount);
+            player.GetComponent<PlayerAttack>().TakeDamage(damageAmount);
         }
     }
     void OnDrawGizmosSelected()
@@ -114,6 +130,18 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.position, EnemyAttackRange);
 
     }
+
+    public void PlayerTakeDamage(int damageAmount)
+    {
+        HelthPoint -= damageAmount;
+        if (HelthPoint <= 0)
+        {
+            Destroy(gameObject);
+
+        }
+
+    }
+
 }
 
 

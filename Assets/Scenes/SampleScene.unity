@@ -976,13 +976,12 @@ MonoBehaviour:
   moveSpeed: 1
   rotationSpeed: 5
   radius: 0.42
-  attackDistance: 2
+  attackDistance: 1
   Player: {fileID: 1796985730}
   healthBar: {fileID: 1307177460}
   attackPoint: {fileID: 511395302}
-  attackRate: 2
   EnemyAttackRange: 0.06
-  damageAmount: 20
+  damageAmount: 1
   playerLayers:
     serializedVersion: 2
     m_Bits: 128
@@ -10925,7 +10924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8867924, g: 0.070274055, b: 0.070274055, a: 1}
+  m_Color: {r: 0.21814813, g: 0.6792453, b: 0.13072266, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10941,7 +10940,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 1.02
 --- !u!222 &1247428586
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14987,7 +14986,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 200
+  m_MaxValue: 300
   m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
@@ -15002,7 +15001,7 @@ RectTransform:
   m_GameObject: {fileID: 1716810135}
   m_LocalRotation: {x: 0.019607347, y: 0.078546636, z: -0.017343104, w: 0.9965668}
   m_LocalPosition: {x: 0, y: 0, z: 7.2000036}
-  m_LocalScale: {x: 0.64, y: 1.63, z: 0.09}
+  m_LocalScale: {x: 0.64, y: 2.38, z: 0.09}
   m_Children:
   - {fileID: 1874786641}
   - {fileID: 1717537427}
@@ -15392,14 +15391,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafad2ede0e259f4b952aee2fdb22576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 50
   attackRange: 0.12
   attackPoint: {fileID: 1004049831}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
-  attackRate: 2
+  attackRate: 1
   healthBar: {fileID: 1716810136}
+  PlayerdamageAmount: 30
 --- !u!4 &1800587523 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3406452828504253352, guid: bf867a77083a8f143801858f367bc323, type: 3}
@@ -16107,7 +16106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2848962, g: 0.8490566, b: 0.123353474, a: 1}
+  m_Color: {r: 0.8301887, g: 0.18833329, b: 0.15977213, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
