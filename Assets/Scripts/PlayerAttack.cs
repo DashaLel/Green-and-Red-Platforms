@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class PlayerAttack : MonoBehaviour
 {
    
@@ -18,15 +20,21 @@ public class PlayerAttack : MonoBehaviour
     public Slider healthBar;
     private int HealthPoint = 300;
     public int PlayerdamageAmount;
+    
+
 
     void Start()
     {
         animator = GetComponent<Animator>();
+       
+        
     }
 
     void Update()
     {
-
+        
+        
+        
         healthBar.value = HealthPoint;
         if (Input.GetKeyDown(KeyCode.Space) && !isAttacking)
         {
@@ -62,6 +70,8 @@ public class PlayerAttack : MonoBehaviour
         if (HealthPoint <= 0)
         {
             Destroy(gameObject);
+           
+
 
         }
 

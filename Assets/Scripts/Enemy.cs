@@ -26,6 +26,9 @@ public class Enemy : MonoBehaviour
     public int damageAmount;
     public LayerMask playerLayers;
 
+    public int score;
+    public Text scoreText;
+
 
 
 
@@ -35,6 +38,8 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        score = 0;
+        scoreText.text = "Убито врагов: " + score;
 
         enemyRb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
@@ -137,6 +142,8 @@ public class Enemy : MonoBehaviour
         if (HelthPoint <= 0)
         {
             Destroy(gameObject);
+            score++;
+            scoreText.text = "Убито врагов: " + score;
 
         }
 
