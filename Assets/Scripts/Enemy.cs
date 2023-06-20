@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
 
     public float moveSpeed = 1f;
     public float rotationSpeed = 3f;
-    public float radius = 10f;
+    public float radius = 5f;
     private Vector3 centerPoint;
     private Vector3 targetPoint;
     public float attackDistance = 0.5f;
